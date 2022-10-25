@@ -7,6 +7,7 @@ import {
   ScrollView,
   Button,
 } from "react-native";
+import IconButton from "../components/IconButton";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import MealDetails from "../components/MealDetails";
@@ -25,7 +26,7 @@ const MealDetailScreen = ({ route, navigation }) => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Button title="Meal Detail" onPress={headerButtonPressHandler} />
+          <IconButton icon='star' onPress={headerButtonPressHandler} color='white' />
         );
       },
     });
