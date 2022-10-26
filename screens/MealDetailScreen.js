@@ -7,29 +7,35 @@ import {
   ScrollView,
   Button,
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import IconButton from "../components/IconButton";
 import List from "../components/MealDetail/List";
 import Subtitle from "../components/MealDetail/Subtitle";
 import MealDetails from "../components/MealDetails";
 
-import {FavouritesContext} from '../store/context/favourites-context'
+//import {FavouritesContext} from '../store/context/favourites-context'
 
 import { MEALS } from "../data/dummy-data";
+import {addFavourite, removeFavourite} from '../store/redux/favourites'
 
 const MealDetailScreen = ({ route, navigation }) => {
-  const favouriteMealCtx = useContext(FavouritesContext)
+  //const favouriteMealCtx = useContext(FavouritesContext)
+
+  const favoriteMealsId = useSelector((state)  => state.favouriteMeals.ids)
+  const dispatch = useDispatch()
 
   const mealId = route.params.mealId;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  const mealIsFavourite = favouriteMealCtx.ids.includes(mealId)
+  const mealIsFavourite = favoriteMealsId.includes(mealId)
 
   function headerButtonPressHandler() {
     if(mealIsFavourite) {
-      favouriteMealCtx.removeFavourite(mealId)
+      // favouriteMealCtx.removeFavourite(mealId)
+      dispatch(removeFavourite({id:mealId}))
     } else {
-      favouriteMealCtx.addFavourite(mealId)
+      dispatch(addFavourite({id:mealId}))
     }
   }
 
